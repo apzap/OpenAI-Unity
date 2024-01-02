@@ -21,8 +21,6 @@ namespace OpenAI
     
     public class OpenAIFile
     {
-        public string Prompt { get; set; }
-        public object Completion { get; set; }
         public string Id { get; set; }
         public string Object { get; set; }
         public long Bytes { get; set; }
@@ -36,7 +34,6 @@ namespace OpenAI
     public class OpenAIFileResponse : OpenAIFile, IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
     }
 
     public class ApiError
@@ -59,7 +56,6 @@ namespace OpenAI
     public struct ListModelsResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Object { get; set; }
         public List<OpenAIModel> Data { get; set; }
     }
@@ -78,7 +74,6 @@ namespace OpenAI
     public class OpenAIModelResponse : OpenAIModel, IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
     }
     #endregion
 
@@ -96,20 +91,18 @@ namespace OpenAI
         public float? FrequencyPenalty { get; set; } = 0;
         public Dictionary<string, string> LogitBias { get; set; }
         public string User { get; set; }
-        public string SystemFingerprint { get; set; }
     }
 
     public struct CreateChatCompletionResponse : IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Model { get; set; }
         public string Id { get; set; }
         public string Object { get; set; }
         public long Created { get; set; }
         public List<ChatChoice> Choices { get; set; }
         public Usage Usage { get; set; }
-        public string SystemFingerprint { get; set; }
+        public int? System_fingerprint { get; set; }
     }
     
     public struct ChatChoice
@@ -118,6 +111,7 @@ namespace OpenAI
         public ChatMessage Delta { get; set; }
         public int? Index { get; set; }
         public string FinishReason { get; set; }
+        public int? Logprobs { get; set; }
     }
 
     public struct ChatMessage
@@ -156,7 +150,6 @@ namespace OpenAI
     public struct CreateAudioResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Text { get; set; }
     }
     #endregion
@@ -185,7 +178,6 @@ namespace OpenAI
     public struct CreateCompletionResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Id { get; set; }
         public string Object { get; set; }
         public long Created { get; set; }
@@ -209,7 +201,6 @@ namespace OpenAI
     public struct CreateEditResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Object { get; set; }
         public long Created { get; set; }
         public List<Choice> Choices { get; set; }
@@ -246,7 +237,6 @@ namespace OpenAI
     public struct CreateImageResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public long Created { get; set; }
         public List<ImageData> Data { get; set; }
     }
@@ -269,7 +259,6 @@ namespace OpenAI
     public struct CreateEmbeddingsResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Object { get; set; }
         public List<EmbeddingData> Data;
         public string Model { get; set; }
@@ -288,16 +277,13 @@ namespace OpenAI
     public struct ListFilesResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Object { get; set; }
         public List<OpenAIFile> Data { get; set; }
-        public bool HasMore { get; set; }
     }
 
     public struct DeleteResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Id { get; set; }
         public string Object { get; set; }
         public bool Deleted { get; set; }
@@ -330,16 +316,13 @@ namespace OpenAI
     public struct ListFineTunesResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Object { get; set; }
         public List<FineTune> Data { get; set; }
-        public object NextStartingAfter { get; set; }
     }
     
     public struct ListFineTuneEventsResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Object { get; set; }
         public List<FineTuneEvent> Data { get; set; }
     }
@@ -364,7 +347,6 @@ namespace OpenAI
     public class FineTuneResponse : FineTune, IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
     }
 
     public struct FineTuneEvent
@@ -386,7 +368,6 @@ namespace OpenAI
     public struct CreateModerationResponse: IResponse
     {
         public ApiError Error { get; set; }
-        public string Warning { get; set; }
         public string Id { get; set; }
         public string Model { get; set; }
         public List<ModerationResult> Results { get; set; }
